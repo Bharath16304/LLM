@@ -1,10 +1,13 @@
 fastapi
 uvicorn
 gunicorn
-sqlalchemy
-pymysql
+psycopg2-binary
 pandas
 numpy
 joblib
+scikit-learn
+passlib
+python-multipart
+bcrypt 
 python-dotenv
 google-genai
