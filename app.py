@@ -30,11 +30,11 @@ load_dotenv()
 
 # CRITICAL: These values read directly from the environment variables 
 # injected by the cloud host (Render).
-DB_USER = os.environ.get("fraud_detection_bm34_user")
-DB_PASS = os.environ.get("SvO9Sxf4q8C7UBc2CM6nEYX7d1UKIxeO")
-DB_HOST = os.environ.get("dpg-d3jatp1r0fns7384bsfg-a")
-DB_PORT = os.environ.get("5432")
-DB_NAME = os.environ.get("fraud_detection_bm34")
+DB_USER = os.environ.get("DB_USER","fraud_detection_bm34_user")
+DB_PASS = os.environ.get("DB_PASS","SvO9Sxf4q8C7UBc2CM6nEYX7d1UKIxeO")
+DB_HOST = os.environ.get("DB_HOST","dpg-d3jatp1r0fns7384bsfg-a")
+DB_PORT = os.environ.get("DB_PORT","5432")
+DB_NAME = os.environ.get("DB_NAME","fraud_detection_bm34")
 
 # Database URL uses 'postgresql' driver (requires psycopg2-binary)
 DATABASE_URL = f"postgresql://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME}" 
@@ -153,7 +153,7 @@ def get_db():
 # ===============================
 try:
     BASE_DIR = Path(__file__).resolve().parent
-    MODEL_PATH = BASE_DIR / "fraud_model_rf.pkl"
+    MODEL_PATH = BASE_DIR / "fraud_model_rf1.pkl"
     model_bundle = joblib.load(MODEL_PATH)
     model = model_bundle["model"]
     encoders = model_bundle["encoders"]
@@ -571,3 +571,4 @@ def delete_all_transactions(db: Session = Depends(get_db)):
     except Exception as e:
         db.rollback()
         raise HTTPException(status_code=500, detail=f"Failed to delete transactions: {e}")
+
